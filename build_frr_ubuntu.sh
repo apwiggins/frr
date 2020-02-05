@@ -49,7 +49,7 @@ cd ~/$SRC_DIR/frr
     --libdir=\${prefix}/lib/frr \
     --libexecdir=\${prefix}/lib/frr \
     --localstatedir=/var/run/frr \
-    --sysconfdir=/etc/frr \
+    --sysconfdir=/usr/local/etc/frr \
     --with-moduledir=\${prefix}/lib/frr/modules \
     --with-libyang-pluginsdir=\${prefix}/lib/frr/libyang_plugins \
     --enable-configfile-mask=0640 \
@@ -62,11 +62,15 @@ cd ~/$SRC_DIR/frr
     --with-pkg-git-version \
     --with-pkg-extra-version=$MYVERSION
 make -j$nprocs
-
 sudo make install
+
+sudo mkdir -p /var/run/frr
+sudo mkdir -p /usr/local/etc/frr
+sudo mkdir -p /var/log/frr
+
 sudo install -m 775 -o frr -g frr -d /var/log/frr
-sudo install -m 775 -o frr -g frrvty -d /etc/frr
-sudo install -m 640 -o frr -g frrvty tools/etc/frr/vtysh.conf /etc/frr/vtysh.conf
-sudo install -m 640 -o frr -g frr tools/etc/frr/frr.conf /etc/frr/frr.conf
-sudo install -m 640 -o frr -g frr tools/etc/frr/daemons.conf /etc/frr/daemons.conf
-sudo install -m 640 -o frr -g frr tools/etc/frr/daemons /etc/frr/daemons
+sudo install -m 775 -o frr -g frrvty -d /usr/local/etc/frr
+sudo install -m 640 -o frr -g frrvty tools/etc/frr/vtysh.conf /usr/local/etc/frr/vtysh.conf
+sudo install -m 640 -o frr -g frr tools/etc/frr/frr.conf /usr/local/etc/frr/frr.conf
+sudo install -m 640 -o frr -g frr tools/etc/frr/daemons.conf /usr/local/etc/frr/daemons.conf
+sudo install -m 640 -o frr -g frr tools/etc/frr/daemons /usr/local/etc/frr/daemons
