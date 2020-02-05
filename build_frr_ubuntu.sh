@@ -22,7 +22,8 @@ cd ~/$SRC_DIR/frr
 git clone https://github.com/CESNET/libyang.git
 cd libyang
 mkdir build; cd build
-cmake -DENABLE_LYD_PRIV=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+cmake -DENABLE_LYD_PRIV=ON \
+      -DCMAKE_INSTALL_PREFIX:PATH=/usr \
       -D CMAKE_BUILD_TYPE:String="Release" ..
 make -j$nprocs
 sudo make install
@@ -31,10 +32,10 @@ sudo make install
 sudo groupadd -r -g 92 frr
 sudo groupadd -r -g 85 frrvty
 sudo adduser \
-            --system \
-            --ingroup frr \
-            --home /var/run/frr/ \
-            --gecos "FRR suite" --shell /sbin/nologin frr
+        --system \
+        --ingroup frr \
+        --home /var/run/frr/ \
+        --gecos "FRR suite" --shell /sbin/nologin frr
 sudo usermod -a -G frrvty frr
 
 #build and install FRR
